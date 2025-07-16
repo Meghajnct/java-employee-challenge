@@ -1,0 +1,17 @@
+plugins {
+    id 'project-conventions'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'net.datafaker:datafaker:2.3.1'
+
+    // Test dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
+}
+
+springBoot {
+    mainClass = 'com.reliaquest.server.ServerApplication'
+}
