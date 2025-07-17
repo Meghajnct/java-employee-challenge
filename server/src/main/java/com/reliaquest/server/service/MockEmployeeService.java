@@ -27,6 +27,7 @@ public class MockEmployeeService {
         return mockEmployees.stream()
                 .filter(mockEmployee -> Objects.nonNull(mockEmployee.getId())
                         && mockEmployee.getId().equals(uuid))
+                .peek(employee -> log.info("found the employee: {}", employee))
                 .findFirst();
     }
 
