@@ -11,7 +11,13 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/employee")
@@ -33,22 +39,6 @@ public class MockEmployeeController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(Response.handled()));
     }
 
-    @GetMapping("/search/{searchString}")
-    public Response<List<MockEmployee>> getEmployeesByNameSearch(@PathVariable("searchString") String nameFragment) {
-        return Response.handledWith(mockEmployeeService.findByNameFragment(nameFragment));
-    }
-
-    @GetMapping("/highestSalary")
-    public Response<Integer> getHighestSalaryOfEmployees() {
-        return Response.handledWith(mockEmployeeService.getHighestSalary());
-    }
-
-    @GetMapping("/topTenHighestEarningEmployeeNames")
-    public Response<List<String>> getTop10HighestEarningEmployeeNames() {
-
-        return Response.handledWith(mockEmployeeService.getTop10HighestEarningEmployeeNames());
-    }
-
     @PostMapping()
     public Response<MockEmployee> createEmployee(@Valid @RequestBody CreateMockEmployeeInput input) {
         return Response.handledWith(mockEmployeeService.create(input));
@@ -57,10 +47,5 @@ public class MockEmployeeController {
     @DeleteMapping()
     public Response<Boolean> deleteEmployee(@Valid @RequestBody DeleteMockEmployeeInput input) {
         return Response.handledWith(mockEmployeeService.delete(input));
-    }
-
-    @DeleteMapping("/{id}")
-    public Response<Boolean> deleteEmployeeById(@PathVariable String id) {
-        return Response.handledWith(mockEmployeeService.deleteEmployeeById(id));
     }
 }
